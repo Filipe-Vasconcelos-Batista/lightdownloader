@@ -1,5 +1,116 @@
-<!doctype html><meta charset="utf-8"><title>Light Downloader</title>
-<h1>Light Downloader</h1>
-<p>Download many 1fichier files at once and organise them for your media library. Unofficial project, not affiliated with 1fichier or TMDB; a 1fichier Premium account is required.</p>
-<p>Descarrega muitos ficheiros do 1fichier de uma vez e organiza-os para a tua biblioteca de vídeo. Projecto não oficial; é preciso uma conta 1fichier Premium.</p>
-<p><a href="light-downloader.flatpakref"><b>Instalar / Install</b></a></p>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Light Downloader</title>
+<meta name="description" content="Bring whole 1fichier lists home, in order. A Linux app that downloads many files at once and organises them for Jellyfin.">
+<link rel="icon" href="favicon.png">
+<style>
+:root{--bg:#fff;--bg2:#f4f6fa;--fg:#1c1e21;--muted:#6b7280;--border:#d8dbe0;--accent:#2563eb;--accent-fg:#fff;--ok:#16a34a;--shadow:0 10px 30px rgba(37,99,235,.18)}
+@media (prefers-color-scheme:dark){:root{--bg:#14161a;--bg2:#1b1e24;--fg:#e6e8eb;--muted:#9aa3af;--border:#2c3038;--accent:#60a5fa;--accent-fg:#0b1220;--ok:#4ade80;--shadow:0 10px 30px rgba(96,165,250,.15)}}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--fg)}
+a{color:var(--accent)}
+.wrap{max-width:880px;margin:0 auto;padding:0 20px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+nav .brand{display:flex;align-items:center;gap:10px;font-weight:600;text-decoration:none;color:var(--fg)}
+nav img{width:32px;height:32px}
+.lang{display:flex;gap:4px}
+.lang button{font:inherit;font-size:14px;padding:4px 10px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--fg);cursor:pointer}
+.lang button[aria-pressed=true]{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+.hero{text-align:center;padding:56px 0 48px;background:radial-gradient(ellipse at top,var(--bg2),transparent 70%)}
+.hero img{width:128px;height:128px;border-radius:28px;box-shadow:var(--shadow)}
+h1{font-size:clamp(2rem,6vw,3rem);line-height:1.15;margin:24px 0 8px}
+.tag{font-size:1.25rem;color:var(--accent);margin:0 0 16px}
+.lead{max-width:560px;margin:0 auto 28px;color:var(--muted)}
+.btn{display:inline-block;padding:14px 28px;border-radius:10px;background:var(--accent);color:var(--accent-fg);font-weight:600;text-decoration:none;box-shadow:var(--shadow)}
+.btn:hover{filter:brightness(1.08)}
+.hint{font-size:14px;color:var(--muted);margin-top:14px}
+section{padding:36px 0}
+h2{font-size:1.5rem;margin:0 0 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px}
+.card h3{margin:0 0 6px;font-size:1.05rem}
+.card h3:before{content:"✓ ";color:var(--ok)}
+.card p{margin:0;color:var(--muted);font-size:15px}
+pre{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:14px;margin:8px 0 0}
+.path{font-family:ui-monospace,monospace;font-size:14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;overflow-x:auto;white-space:pre}
+footer{border-top:1px solid var(--border);padding:24px 0 40px;color:var(--muted);font-size:14px;text-align:center}
+[data-l]{display:none}
+html[lang=en] [data-l=en],html[lang=pt] [data-l=pt]{display:revert}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a class="brand" href="#"><img src="favicon.png" alt="">Light Downloader</a>
+    <div class="lang"><button data-set="en">EN</button><button data-set="pt">PT</button></div>
+  </nav>
+
+  <div class="hero">
+    <img src="icon.png" alt="Light Downloader icon">
+    <h1>Light Downloader</h1>
+    <p class="tag" data-l="en">Bring whole lists home, in order.</p>
+    <p class="tag" data-l="pt">Traz listas inteiras para casa, por ordem.</p>
+    <p class="lead" data-l="en">Download many 1fichier files at once and organise them for your media library.</p>
+    <p class="lead" data-l="pt">Descarrega muitos ficheiros do 1fichier de uma vez e organiza-os para a tua biblioteca de vídeo.</p>
+    <a class="btn" href="light-downloader.flatpakref"><span data-l="en">Install for Linux</span><span data-l="pt">Instalar no Linux</span></a>
+    <p class="hint" data-l="en">Flatpak · opens in your software store</p>
+    <p class="hint" data-l="pt">Flatpak · abre na tua loja de aplicações</p>
+  </div>
+
+  <section>
+    <h2 data-l="en">What it does</h2><h2 data-l="pt">O que faz</h2>
+    <div class="grid">
+      <div class="card"><h3 data-l="en">Whole lists, one go</h3><h3 data-l="pt">Listas inteiras de uma vez</h3>
+        <p data-l="en">Paste a folder or a list of links and queue everything, in order.</p>
+        <p data-l="pt">Cola uma pasta ou uma lista de links e põe tudo na fila, por ordem.</p></div>
+      <div class="card"><h3 data-l="en">Organised for Jellyfin</h3><h3 data-l="pt">Organizado para o Jellyfin</h3>
+        <p data-l="en">Detects series, season and episode and names folders with TMDB data.</p>
+        <p data-l="pt">Detecta série, temporada e episódio e nomeia as pastas com dados do TMDB.</p></div>
+      <div class="card"><h3 data-l="en">Pause, resume, limit</h3><h3 data-l="pt">Pausa, retoma, limita</h3>
+        <p data-l="en">Speed and data usage limits, with pause and resume at any time.</p>
+        <p data-l="pt">Limites de velocidade e de dados, com pausa e retoma a qualquer momento.</p></div>
+      <div class="card"><h3 data-l="en">Local and private</h3><h3 data-l="pt">Local e privado</h3>
+        <p data-l="en">Runs on your computer. Your keys stay in your own settings file.</p>
+        <p data-l="pt">Corre no teu computador. As tuas chaves ficam no teu ficheiro de definições.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-l="en">Tidy results</h2><h2 data-l="pt">Resultado arrumado</h2>
+<div class="path">Series Name (1999) [tmdbid-12345]/
+└── Season 01/
+    ├── S01E01.mkv
+    ├── S01E02.mkv
+    └── S01E03.mkv</div>
+  </section>
+
+  <section>
+    <h2 data-l="en">Install</h2><h2 data-l="pt">Instalar</h2>
+    <p data-l="en">Click the button above and open the file with your software store, or run in a terminal:</p>
+    <p data-l="pt">Clica no botão acima e abre o ficheiro com a tua loja de aplicações, ou corre num terminal:</p>
+    <pre>flatpak install --user https://filipe-vasconcelos-batista.github.io/lightdownloader/light-downloader.flatpakref</pre>
+    <p class="hint" data-l="en">Requires Flatpak and a 1fichier Premium account.</p>
+    <p class="hint" data-l="pt">Requer Flatpak e uma conta 1fichier Premium.</p>
+  </section>
+
+  <footer>
+    <p><a href="https://github.com/Filipe-Vasconcelos-Batista/lightdownloader">GitHub</a></p>
+    <p data-l="en">Unofficial project, not affiliated with 1fichier or TMDB. Film and series data from TMDB.</p>
+    <p data-l="pt">Projecto não oficial, sem ligação ao 1fichier nem ao TMDB. Dados de filmes e séries do TMDB.</p>
+  </footer>
+</div>
+<script>
+(function(){
+  var saved=null;try{saved=localStorage.getItem('lang')}catch(e){}
+  var l=saved||((navigator.language||'en').toLowerCase().indexOf('pt')===0?'pt':'en');
+  function set(x){document.documentElement.lang=x;try{localStorage.setItem('lang',x)}catch(e){}
+    document.querySelectorAll('[data-set]').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.set===x)})}
+  document.querySelectorAll('[data-set]').forEach(function(b){b.onclick=function(){set(b.dataset.set)}});
+  set(l);
+})();
+</script>
+</body>
+</html>
