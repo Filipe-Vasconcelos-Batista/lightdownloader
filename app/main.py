@@ -847,10 +847,13 @@ def parse_groups(text, folders=False):
     return groups
 
 
-SERIES_RE = re.compile(r"^(.*?)[\s._-]+S(\d{1,2})E(\d{1,3})", re.I)
+# Nome S01E02 | Nome S1.E01 | S1.E01.Título (sem nome de série à frente)
+SERIES_RE = re.compile(r"^(?:(.*?)[\s._-]+)?S(\d{1,2})[\s._-]?E(\d{1,3})", re.I)
 ALT_RE = re.compile(r"^(.*?)[\s._-]+(\d{1,2})x(\d{2,3})\b", re.I)  # Nome 1x05
 # Nome - 05 - Título | Nome - 001 [tags] | Nome - 12.mkv  (numeração contínua; 4 dígitos só se não for um ano)
-ABS_RE = re.compile(r"^(.*?)\s+-\s+(\d{1,3}|(?!19|20)\d{4})(?:v\d+)?(?:\s+-\s+|\s*[\[(.]|\s*$)")
+ABS_RE = re.compile(r"^(.*?)\s+-\s+(\d{1,3}|(?!19|20)\d{4})(?:\s*v\d+)?(?:\s+-\s+|\s*[\[(.]|\s*$)")
+# [Grupo].Nome-22-Título.tags  (hífens sem espaços; último recurso)
+DASH_RE = re.compile(r"^(?:\[[^\]]*\][\s._]*)?(.+?)-(\d{1,3})(?:v\d+)?(?=-|[\s._\[(]|$)")
 
 
 def parse_episode(filename):
@@ -861,11 +864,11 @@ def parse_episode(filename):
     if m:
         season, ep = int(m.group(2)), int(m.group(3))
     else:
-        m = ABS_RE.match(fn)
+        m = ABS_RE.match(fn) or DASH_RE.match(fn)
         if not m:
             return "", None, None
         season, ep = 1, int(m.group(2))
-    title = re.sub(r"^(\[[^\]]*\]\s*)+", "", m.group(1))  # tira [grupo] no início
+    title = re.sub(r"^(\[[^\]]*\]\s*)+", "", m.group(1) or "")  # tira [grupo] no início
     return safe_name(re.sub(r"[._]+", " ", title).strip()), season, ep
 
 
